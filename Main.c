@@ -8,11 +8,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
- * 
- */
-int main(int argc, char** argv) {
 
-    return (EXIT_SUCCESS);
+void main(void) 
+{
+
+    unsigned int TxBufferA[16] __attribute__((space(xmemory)));
+    unsigned int TxBufferB[16] __attribute__((space(xmemory)));
+
 }
 
