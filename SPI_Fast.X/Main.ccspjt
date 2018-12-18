@@ -1,0 +1,21 @@
+[PROJECT]
+Target=build\default\production\Main.hex
+Processor_Text=DSPIC33FJ256GP710A
+CCSVersion=5.074
+Compiler=PCD
+[Target Data]
+FileList=Main.c
+[build\default\production\Main.c]
+Type=4
+[mru-list]
+1=build\default\production\Main.c
+
+[ProjectLog]
+Days=1
+D1=18-12-2018
+D1_L=2
+D1_L1=[61027]Project Opened.
+D1_L2=[61033]Project Closed.
+[Units]
+Count=1
+1=Main (main)

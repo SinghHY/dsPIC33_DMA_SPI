@@ -1,0 +1,66 @@
+W0      @SCRATCH
+W0L     _RETURN_
+W0 -W1  @SPI_XFER_1.P1
+W0 -W1  @READ_ROM_MEMORY.P2
+W0 -W1  @DIV3232B.P3
+W0      @delay_ms1.P4
+W0      @delay_us1.P5
+W1      @SCRATCH
+W1      @READ_PACKED_MEMORY.P1
+W1      @WRITE_PACKED_MEMORY.P2
+W2      @READ_ROM_MEMORY.P1
+W2 -W3  @DIV3232B.P2
+W2      @READ_PACKED_MEMORY.P3
+W2      @WRITE_PACKED_MEMORY.P4
+W2      @SPI_XFER_1.P5
+W2      @SPI_XFER_IN_1.P6
+W3      @READ_PACKED_MEMORY.P1
+W3      @READ_ROM_MEMORY.P2
+W3      @WRITE_PACKED_MEMORY.P3
+800     @SPIWRITE_1
+802-821 main.SPI2OBuff
+7780-77FF Stack
+7800-781F main.SPI2Buff
+
+ROM Allocation:
+000200  @cinit1
+000200  main
+00022E  @cinit2
+
+Project Directory:
+    C:\GitRepo\dsPIC33_DMA_SPI\SPI_Fast.X\
+
+Project Files:
+    Main.c                                                  [18-Dec-18 17:06  CRC=B04A4E7C]
+    ..\..\..\Program Files (x86)\PICC\devices\33FJ256GP710A.h [14-Feb-17 13:54  CRC=7C664F33]
+
+Source signature=A916ECE2
+Program memory checksum=0000
+Program memory CRC=0000
+Hex file CRC=052F
+
+Units:
+    Main (main)
+
+Compiler Settings:
+    Processor:      DSPIC33FJ256GP710A
+    Pointer Size:   16
+    ADC Range:      0-4095
+    Opt Level:      9
+    Short,Int,Long: SIGNED: 8,16,32
+    Float,Double:   32,64
+    Compile Mode:       CCS5
+    Predefined symbols:
+       #define __dsPIC33FJ256GP710A__ 1
+
+Output Files:
+    XREF file:   build\default\production\Main.xsym
+    Errors:      build\default\production\Main.err
+    Ext Symbols: build\default\production\Main.esym
+    INHX8:       build\default\production\Main.hex
+    Symbols:     build\default\production\Main.sym
+    List:        build\default\production\Main.lst
+    Debug/COFF:  build\default\production\Main.cof
+    Project:     Main.ccspjt
+    Call Tree:   build\default\production\Main.tre
+    Statistics:  build\default\production\Main.STA

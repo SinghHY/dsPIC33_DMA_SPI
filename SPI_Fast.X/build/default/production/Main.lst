@@ -1,0 +1,140 @@
+CCS PCD C Compiler, Version 5.074, 35380               18-Dec-18 17:18
+
+               Filename:   C:\GitRepo\dsPIC33_DMA_SPI\SPI_Fast.X\build\default\production\Main.lst
+
+               ROM used:   630 bytes (0%)
+                           Largest free fragment is 65536
+               RAM used:   226 (1%) at main() level
+                           226 (1%) worst case
+               Stack used: 0 locations
+               Stack size: 128
+
+*
+00000:  GOTO    200
+.................... /********************************************************************** 
+.................... * Filament Control. 
+.................... * © Harpreet Singh, 2017 
+.................... * FileName:        main.c 
+.................... * Dependencies:    Header (.h) files if applicable, see below*  
+.................... * Processor:dsPIC33FJ256GP710A 
+.................... * Compiler:        MPLAB® CCS v5.074 
+.................... ************************************************************************/ 
+.................... #include <33FJ256GP710A.h> 
+.................... //////////// Standard Header file for the DSPIC33FJ256GP710A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2014 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device DSPIC33FJ256GP710A 
+....................  
+.................... #list 
+....................  
+.................... #fuses XT,NOWDT,NOPROTECT 
+.................... #device ADC = 12  
+.................... #use delay(crystal = 8Mhz) 
+.................... #use spi(SLAVE, SPI2, BITS = 8, MODE = 1, ENABLE = PIN_G9, stream = SPI_2) 
+....................  
+....................  
+....................  
+.................... void main() 
+*
+00200:  MOV     #7780,W15
+00202:  MOV     #77FF,W0
+00204:  MOV     W0,20
+00206:  NOP     
+00208:  BSET.B  81.7
+0020A:  CLR.B   800
+0020C:  BCLR.B  261.7
+0020E:  BCLR.B  2E5.0
+00210:  BSET.B  2E4.7
+00212:  BSET.B  2E5.1
+00214:  BSET.B  2E4.6
+00216:  BCLR.B  260.6
+00218:  BCLR.B  263.1
+0021A:  CLR     268
+0021C:  MOV     #109F,W4
+0021E:  MOV     W4,262
+00220:  BSET.B  261.7
+00222:  BCLR.B  2E5.1
+00224:  BSET.B  2E9.1
+00226:  SETM    32C
+00228:  SETM    32A
+0022A:  SETM    36C
+0022C:  SETM    36A
+.................... {     
+....................    output_float(PIN_G9); // SS as an input 
+0022E:  BSET.B  2E5.1
+....................    setup_adc_ports(sAN0 | sAN2 | sAN3| sAN4, VSS_VDD); 
+00230:  MOV     #FFE2,W4
+00232:  MOV     W4,32C
+00234:  SETM    32A
+00236:  CLR     322
+....................    setup_adc(ADC_CLOCK_INTERNAL); 
+00238:  MOV     #9F00,W4
+0023A:  MOV     W4,324
+0023C:  MOV     #84E0,W4
+0023E:  MOV     W4,320
+....................     
+....................    #BANK_DMA  
+....................    unsigned char SPI2Buff[32];  
+....................    unsigned char SPI2OBuff[32]; 
+....................  
+....................    setup_dma(6,DMA_OUT_SPI2,DMA_BYTE);  
+00240:  MOV.B   #60,W0L
+00242:  MOV.B   W0L,3C9
+00244:  MOV.B   #21,W0L
+00246:  MOV.B   W0L,3CA
+00248:  MOV     #268,W4
+0024A:  MOV     W4,3D0
+....................    dma_start(6, DMA_CONTINOUS ,&SPI2OBuff[0],32); 
+0024C:  BCLR.B  3C9.7
+0024E:  CLR.B   3C8
+00250:  MOV     #802,W4
+00252:  MOV     W4,3CC
+00254:  MOV     #20,W4
+00256:  MOV     W4,3D2
+00258:  BSET.B  3C9.7
+....................     
+....................    setup_dma(7, DMA_IN_SPI2, DMA_BYTE);      //use DMA channel 7 for SPI2 DATA IN (dummy)  
+0025A:  MOV.B   #40,W0L
+0025C:  MOV.B   W0L,3D5
+0025E:  MOV.B   #21,W0L
+00260:  MOV.B   W0L,3D6
+00262:  MOV     #268,W4
+00264:  MOV     W4,3DC
+....................    dma_start(7, DMA_CONTINOUS ,&SPI2Buff[0],32);   //setup dummy receive to avoid SPI2 overrun  
+00266:  BCLR.B  3D5.7
+00268:  CLR.B   3D4
+0026A:  MOV     #7800,W4
+0026C:  MOV     W4,3D8
+0026E:  MOV     #20,W4
+00270:  MOV     W4,3DE
+00272:  BSET.B  3D5.7
+....................  
+....................  
+....................    
+.................... }    
+00274:  PWRSAV  #0
+
+Configuration Fuses:
+   Word  1L: 00CF   NOWRTB NOBSS NORBS
+          H: 0000  
+   Word  2L: 00CF   NOWRTSS NOSSS NORSS
+          H: 0000  
+   Word  3L: 0007   NOWRT NOPROTECT
+          H: 0000  
+   Word  4L: 0082   PR IESO
+          H: 0000  
+   Word  5L: 00C1   XT OSCIO
+          H: 0000  
+   Word  6L: 005F   WPOSTS16 WPRES128 WINDIS NOWDT
+          H: 0000  
+   Word  7L: 00E7   PUT128
+          H: 0000  
+   Word  8L: 00C3   ICSP1 NOJTAG NODEBUG
+          H: 0000  
