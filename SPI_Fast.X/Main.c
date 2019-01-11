@@ -44,6 +44,9 @@ void main()
        delay_ms(500);
        output_low(GREEN_LED);
        delay_ms(500);
+       
+       for(i = 0; i <= 3; i++)
+            TxBuffer[i] = RxBuffer[i];
        Error = dma_status(0);
    }
   
