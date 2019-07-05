@@ -10,7 +10,7 @@
 #fuses XT,NOWDT,NOPROTECT
 #device ADC = 12 
 #use delay(clock = 100Mhz, crystal = 8Mhz)
-#use spi(SLAVE, SPI2, BITS = 8, MODE = 1, ENABLE = PIN_G9, stream = SPI_2)
+#use spi(SLAVE, SPI2, BITS = 8, MODE = 0, ENABLE = PIN_G9, stream = SPI_2)
 
 #define GREEN_LED  PIN_A6
 #define RED_LED  PIN_A7
@@ -26,18 +26,19 @@ void main()
 {    
     
    
-   output_float(PIN_G9); // SS as an input
+   //output_float(PIN_G9); // SS as an input
 
 
    for(i = 0; i <= 3; i++)
        TxBuffer[i] = i * 10;
+   
+   setup_dma(2, DMA_OUT_SPI2, DMA_BYTE);  
+   setup_dma(0, DMA_IN_SPI2, DMA_BYTE);
 
-   setup_dma(2, DMA_OUT_SPI2, DMA_BYTE); 
+   spi_prewrite(TxBuffer[0]);
+   dma_start(0, DMA_CONTINOUS ,&RxBuffer[0],3);  
    dma_start(2, DMA_CONTINOUS ,&TxBuffer[0],3);
    
-   setup_dma(0, DMA_IN_SPI2, DMA_BYTE);   
-   dma_start(0, DMA_CONTINOUS ,&RxBuffer[0],3); 
-
    while(1)
    {
        output_high(GREEN_LED);
@@ -47,7 +48,7 @@ void main()
        
        for(i = 0; i <= 3; i++)
             TxBuffer[i] = RxBuffer[i];
-       Error = dma_status(0);
+       
    }
   
 }   
