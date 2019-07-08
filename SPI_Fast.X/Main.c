@@ -10,7 +10,7 @@
 #fuses XT,NOWDT,NOPROTECT
 #device ADC = 12 
 #use delay(clock = 100Mhz, crystal = 8Mhz)
-#use spi(SLAVE, SPI2, BITS = 8, MODE = 0, ENABLE = PIN_G9, stream = SPI_2)
+#use spi(SLAVE, SPI2, BITS = 16, MODE = 0, ENABLE = PIN_G9, stream = SPI_2)
 
 #define GREEN_LED  PIN_A6
 #define RED_LED  PIN_A7
@@ -18,9 +18,9 @@
 int8 i, Error;
    
 #bank_dma 
-    unsigned int8  TxBuffer[4];
+    unsigned int16  TxBuffer[2];
 #bank_dma 
-    unsigned int8  RxBuffer[4]; 
+    unsigned int16  RxBuffer[2]; 
 
 void main()
 {    
@@ -32,12 +32,12 @@ void main()
    for(i = 0; i <= 3; i++)
        TxBuffer[i] = i * 10;
    
-   setup_dma(2, DMA_OUT_SPI2, DMA_BYTE);  
-   setup_dma(0, DMA_IN_SPI2, DMA_BYTE);
+   setup_dma(2, DMA_OUT_SPI2, DMA_WORD);  
+   setup_dma(0, DMA_IN_SPI2, DMA_WORD);
 
    spi_prewrite(TxBuffer[0]);
-   dma_start(0, DMA_CONTINOUS ,&RxBuffer[0],3);  
-   dma_start(2, DMA_CONTINOUS ,&TxBuffer[0],3);
+   dma_start(0, DMA_CONTINOUS ,&RxBuffer[0],1);  
+   dma_start(2, DMA_CONTINOUS ,&TxBuffer[0],1);
    
    while(1)
    {
@@ -46,7 +46,7 @@ void main()
        output_low(GREEN_LED);
        delay_ms(500);
        
-       for(i = 0; i <= 3; i++)
+       for(i = 0; i <= 1; i++)
             TxBuffer[i] = RxBuffer[i];
        
    }
