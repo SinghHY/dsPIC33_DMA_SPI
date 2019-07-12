@@ -1,3 +1,5 @@
 青SPI_Fast
-   青main  0/118  Ram=65
-      青@cinit1  (Inline)  Ram=0
+   青main  0/204  Ram=1
+      団@cinit1  (Inline)  Ram=0
+      団@delay_ms1  0/28  Ram=1
+      青@delay_ms1  0/28  Ram=1

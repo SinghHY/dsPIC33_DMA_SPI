@@ -1,7 +1,7 @@
 [PROJECT]
 Target=build\default\production\Main.hex
 Processor_Text=DSPIC33FJ256GP710A
-CCSVersion=5.074
+CCSVersion=5.069
 Compiler=PCD
 [Target Data]
 FileList=Main.c

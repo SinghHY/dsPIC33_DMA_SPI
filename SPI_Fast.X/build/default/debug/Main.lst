@@ -1,0 +1,236 @@
+CCS PCD C Compiler, Version 5.069, 35380               09-Jul-19 16:02
+
+               Filename:   C:\GitRepo\dsPIC33_DMA_SPI\SPI_Fast.X\build\default\debug\Main.lst
+
+               ROM used:   790 bytes (0%)
+                           Largest free fragment is 65536
+               RAM used:   116 (0%) at main() level
+                           116 (0%) worst case
+               Stack used: 2 locations
+               Stack size: 96
+
+*
+00000:  GOTO    21C
+.................... /********************************************************************** 
+.................... * Filament Control. 
+.................... * © Harpreet Singh, 2017 
+.................... * FileName:        main.c 
+.................... * Dependencies:    Header (.h) files if applicable, see below*  
+.................... * Processor:dsPIC33FJ256GP710A 
+.................... * Compiler:        MPLAB® CCS v5.074 
+.................... ************************************************************************/ 
+.................... #include <33FJ256GP710A.h> 
+.................... //////////// Standard Header file for the DSPIC33FJ256GP710A device //////////////// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... ////        (C) Copyright 1996, 2014 Custom Computer Services          //// 
+.................... //// This source code may only be used by licensed users of the CCS C  //// 
+.................... //// compiler.  This source code may only be distributed to other      //// 
+.................... //// licensed users of the CCS C compiler.  No other use, reproduction //// 
+.................... //// or distribution is permitted without written permission.          //// 
+.................... //// Derivative programs created using this software in object code    //// 
+.................... //// form are not restricted in any way.                               //// 
+.................... /////////////////////////////////////////////////////////////////////////// 
+.................... #device DSPIC33FJ256GP710A 
+....................  
+.................... #list 
+....................  
+.................... #fuses XT,NOWDT,NOPROTECT 
+.................... #device ADC = 12  
+.................... #use delay(clock = 100Mhz, crystal = 8Mhz) 
+*
+00200:  CP0     W0
+00202:  BTSC.B  42.1
+00204:  BRA     21A
+00206:  REPEAT  #34B
+00208:  NOP     
+0020A:  REPEAT  #3FFE
+0020C:  NOP     
+0020E:  REPEAT  #3FFE
+00210:  NOP     
+00212:  REPEAT  #3FFE
+00214:  NOP     
+00216:  DEC     W0,W0
+00218:  BRA     NZ,206
+0021A:  RETURN  
+.................... #use spi(SLAVE, SPI2, BITS = 16, MODE = 0, ENABLE = PIN_G9, stream = SPI_2) 
+....................  
+.................... #define GREEN_LED  PIN_A6 
+.................... #define RED_LED  PIN_A7 
+....................  
+.................... int8 i, Error; 
+....................     
+.................... #bank_dma  
+....................     unsigned int16  TxBuffer[4]; 
+.................... #bank_dma  
+....................     unsigned int16  RxBuffer[4];  
+....................  
+.................... void main() 
+0021C:  MOV     #7FA0,W15
+0021E:  MOV     #7FFF,W0
+00220:  MOV     W0,20
+00222:  NOP     
+00224:  BSET.B  81.7
+00226:  CLR     744
+00228:  MOV     #30,W4
+0022A:  MOV     W4,746
+0022C:  DISI    #E
+0022E:  MOV     #103,W0
+00230:  MOV     #743,W1
+00232:  MOV     #78,W2
+00234:  MOV     #9A,W3
+00236:  MOV.B   W2L,[W1]
+00238:  MOV.B   W3L,[W1]
+0023A:  MOV.B   W0L,743
+0023C:  LSR     W0,#8,W0
+0023E:  MOV     #742,W1
+00240:  MOV     #46,W2
+00242:  MOV     #57,W3
+00244:  MOV.B   W2L,[W1]
+00246:  MOV.B   W3L,[W1]
+00248:  MOV.B   W0L,[W1]
+0024A:  CLR.B   85A
+0024C:  BCLR.B  261.7
+0024E:  BCLR.B  2E5.0
+00250:  BSET.B  2E4.7
+00252:  BSET.B  2E5.1
+00254:  BSET.B  2E4.6
+00256:  BCLR.B  260.6
+00258:  BCLR.B  263.1
+0025A:  CLR     268
+0025C:  MOV     #1197,W4
+0025E:  MOV     W4,262
+00260:  BSET.B  261.7
+00262:  BCLR.B  2E5.1
+00264:  BSET.B  2E9.1
+00266:  SETM    32C
+00268:  SETM    32A
+0026A:  SETM    36C
+0026C:  SETM    36A
+.................... {     
+....................      
+....................     
+....................    //output_float(PIN_G9); // SS as an input 
+....................  
+....................  
+....................    for(i = 0; i <= 3; i++) 
+0026E:  CLR.B   85C
+00270:  MOV.B   85C,W0L
+00272:  SE      W0,W0
+00274:  CP      W0,#3
+00276:  BRA     GT,294
+....................        TxBuffer[i] = i * 10; 
+00278:  MOV.B   85C,W0L
+0027A:  SE      W0,W0
+0027C:  MOV     W0,W4
+0027E:  MUL.UU  W4,#2,W0
+00280:  MOV     #7800,W4
+00282:  ADD     W0,W4,W5
+00284:  MOV.B   85C,W0L
+00286:  SE      W0,W0
+00288:  MOV     W0,W4
+0028A:  MUL.UU  W4,#A,W0
+0028C:  MOV     W0,[W5]
+0028E:  INC.B   085C
+00290:  GOTO    270
+....................     
+....................    setup_dma(2, DMA_OUT_SPI2, DMA_WORD);   
+00294:  MOV.B   #20,W0L
+00296:  MOV.B   W0L,399
+00298:  MOV.B   #21,W0L
+0029A:  MOV.B   W0L,39A
+0029C:  MOV     #268,W4
+0029E:  MOV     W4,3A0
+....................    setup_dma(0, DMA_IN_SPI2, DMA_WORD); 
+002A0:  CLR.B   381
+002A2:  MOV.B   #21,W0L
+002A4:  MOV.B   W0L,382
+002A6:  MOV     #268,W4
+002A8:  MOV     W4,388
+....................  
+....................    spi_prewrite(TxBuffer[0]); 
+002AA:  PUSH    7800
+002AC:  POP     85A
+002AE:  MOV.B   85A,W0L
+002B0:  MOV.B   W0L,268
+002B2:  MOV.B   #1,W0L
+002B4:  MOV.B   W0L,85A
+....................    dma_start(0, DMA_CONTINOUS ,&RxBuffer[0],3);   
+002B6:  BCLR.B  381.7
+002B8:  CLR.B   380
+002BA:  MOV     #7808,W4
+002BC:  MOV     W4,384
+002BE:  MOV     #3,W4
+002C0:  MOV     W4,38A
+002C2:  BSET.B  381.7
+....................    dma_start(2, DMA_CONTINOUS ,&TxBuffer[0],3); 
+002C4:  BCLR.B  399.7
+002C6:  CLR.B   398
+002C8:  MOV     #7800,W4
+002CA:  MOV     W4,39C
+002CC:  MOV     #3,W4
+002CE:  MOV     W4,3A2
+002D0:  BSET.B  399.7
+....................     
+....................    while(1) 
+....................    { 
+....................        output_high(GREEN_LED); 
+002D2:  BCLR.B  2C0.6
+002D4:  BSET.B  2C4.6
+....................        delay_ms(500); 
+002D6:  MOV     #1F4,W0
+002D8:  CALL    200
+....................        output_low(GREEN_LED); 
+002DC:  BCLR.B  2C0.6
+002DE:  BCLR.B  2C4.6
+....................        delay_ms(500); 
+002E0:  MOV     #1F4,W0
+002E2:  CALL    200
+....................         
+....................        for(i = 0; i <= 3; i++) 
+002E6:  CLR.B   85C
+002E8:  MOV.B   85C,W0L
+002EA:  SE      W0,W0
+002EC:  CP      W0,#3
+002EE:  BRA     GT,310
+....................             TxBuffer[i] = RxBuffer[i]; 
+002F0:  MOV.B   85C,W0L
+002F2:  SE      W0,W0
+002F4:  MOV     W0,W4
+002F6:  MUL.UU  W4,#2,W0
+002F8:  MOV     #7800,W4
+002FA:  ADD     W0,W4,W5
+002FC:  MOV.B   85C,W0L
+002FE:  SE      W0,W0
+00300:  MOV     W0,W4
+00302:  MUL.UU  W4,#2,W0
+00304:  MOV     #7808,W4
+00306:  ADD     W0,W4,W0
+00308:  MOV     [W0],[W5]
+0030A:  INC.B   085C
+0030C:  GOTO    2E8
+00310:  GOTO    2D2
+....................         
+....................    } 
+....................    
+.................... }    
+00314:  BRA     314
+
+Configuration Fuses:
+   Word  1L: 00CF   NOWRTB NOBSS NORBS
+          H: 0000  
+   Word  2L: 00CF   NOWRTSS NOSSS NORSS
+          H: 0000  
+   Word  3L: 0007   NOWRT NOPROTECT
+          H: 0000  
+   Word  4L: 0080   FRC IESO
+          H: 0000  
+   Word  5L: 0041   XT OSCIO CKSNOFSM
+          H: 0000  
+   Word  6L: 005F   WPOSTS16 WPRES128 WINDIS NOWDT
+          H: 0000  
+   Word  7L: 00E0   NOPUT
+          H: 0000  
+   Word  8L: 0043   ICSP1 NOJTAG DEBUG
+          H: 0000  
+
+   Some fuses have been forced to be compatible with the ICD debugger.

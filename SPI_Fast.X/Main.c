@@ -29,8 +29,11 @@ void main()
    //output_float(PIN_G9); // SS as an input
 
 
-   for(i = 0; i <= 3; i++)
-       TxBuffer[i] = i * 10;
+  
+       TxBuffer[0] = 1;
+       TxBuffer[1] = 3;
+       TxBuffer[2] = 2;
+       TxBuffer[3] = 1;
    
    setup_dma(2, DMA_OUT_SPI2, DMA_BYTE);  
    setup_dma(0, DMA_IN_SPI2, DMA_BYTE);
@@ -45,10 +48,7 @@ void main()
        delay_ms(500);
        output_low(GREEN_LED);
        delay_ms(500);
-       
-       for(i = 0; i <= 3; i++)
-            TxBuffer[i] = RxBuffer[i];
-       
+
    }
   
 }   

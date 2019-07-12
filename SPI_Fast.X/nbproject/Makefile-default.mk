@@ -89,8 +89,8 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk dist/${CND_CONF}/${IMAGE_TYPE}/SPI_Fast.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_CC="C:\Program Files (x86)\PICC\CCSCON.exe"
-MP_LD="C:\Program Files (x86)\PICC\CCSCON.exe"
+MP_CC="C:\PROGRA~2\PICC\CCSCON.exe"
+MP_LD="C:\PROGRA~2\PICC\CCSCON.exe"
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)

@@ -1,3 +1,6 @@
-      Memory usage:   ROM=0%      RAM=1% - 1%
-      0 Errors,  0 Warnings.
+C:\GitRepo\dsPIC33_DMA_SPI\SPI_Fast.X\Main.c:45:1:  Warning#203  Condition always TRUE
+C:\GitRepo\dsPIC33_DMA_SPI\SPI_Fast.X\Main.c:18:6:  Warning#202  Variable never used:   i
+C:\GitRepo\dsPIC33_DMA_SPI\SPI_Fast.X\Main.c:18:9:  Warning#202  Variable never used:   Error
+      Memory usage:   ROM=0%      RAM=0% - 0%
+      0 Errors,  3 Warnings.
 Build Successful.
