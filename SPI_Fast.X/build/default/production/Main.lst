@@ -1,16 +1,18 @@
-CCS PCD C Compiler, Version 5.069, 35380               09-Jul-19 16:46
+CCS PCD C Compiler, Version 5.069, 35380               07-Jan-20 14:40
 
                Filename:   C:\GitRepo\dsPIC33_DMA_SPI\SPI_Fast.X\build\default\production\Main.lst
 
-               ROM used:   744 bytes (0%)
+               ROM used:   730 bytes (0%)
                            Largest free fragment is 65536
-               RAM used:   140 (0%) at main() level
-                           140 (0%) worst case
-               Stack used: 2 locations
+               RAM used:   146 (0%) at main() level
+                           146 (0%) worst case
+               Stack used: 38 locations (0 in main + 38 for interrupts)
                Stack size: 128
 
 *
-00000:  GOTO    21C
+00000:  GOTO    244
+*
+0001C:  DATA    00,02,00
 .................... /********************************************************************** 
 .................... * Filament Control. 
 .................... * © Harpreet Singh, 2017 
@@ -36,163 +38,175 @@ CCS PCD C Compiler, Version 5.069, 35380               09-Jul-19 16:46
 ....................  
 .................... #fuses XT,NOWDT,NOPROTECT 
 .................... #device ADC = 12  
-.................... #use delay(clock = 100Mhz, crystal = 8Mhz) 
-*
-00200:  CP0     W0
-00202:  BTSC.B  42.1
-00204:  BRA     21A
-00206:  REPEAT  #34B
-00208:  NOP     
-0020A:  REPEAT  #3FFE
-0020C:  NOP     
-0020E:  REPEAT  #3FFE
-00210:  NOP     
-00212:  REPEAT  #3FFE
-00214:  NOP     
-00216:  DEC     W0,W0
-00218:  BRA     NZ,206
-0021A:  RETURN  
-.................... #use spi(SLAVE, SPI2, BITS = 8, MODE = 0, ENABLE = PIN_G9, stream = SPI_2) 
+.................... #use delay(crystal = 40Mhz) 
+.................... //#use spi(SLAVE, SPI2, BITS = 16, MODE = 0, ENABLE = PIN_G9, stream = SPI_2) 
 ....................  
+....................          
 .................... #define GREEN_LED  PIN_A6 
 .................... #define RED_LED  PIN_A7 
 ....................  
 .................... int8 i, Error; 
 ....................     
 .................... #bank_dma  
-....................     unsigned int8  TxBuffer[4]; 
+....................     unsigned int16  TxBuffer[4]; 
 .................... #bank_dma  
-....................     unsigned int8  RxBuffer[4];  
+....................     unsigned int16  RxBuffer[4];  
+.................... #INT_DMA0 
+.................... void dma0_isr(void) 
+*
+00200:  PUSH    42
+00202:  PUSH    36
+00204:  PUSH    32
+00206:  MOV     W0,[W15++]
+00208:  MOV     #2,W0
+0020A:  REPEAT  #C
+0020C:  MOV     [W0++],[W15++]
+.................... { 
+....................    dma_start(0, DMA_ONE_SHOT ,&RxBuffer[0],4); 
+0020E:  BCLR.B  381.7
+00210:  MOV.B   #1,W0L
+00212:  MOV.B   W0L,380
+00214:  MOV     #7808,W4
+00216:  MOV     W4,384
+00218:  MOV     #4,W4
+0021A:  MOV     W4,38A
+0021C:  BSET.B  381.7
+....................    dma_start(2, DMA_ONE_SHOT ,&TxBuffer[0],4); 
+0021E:  BCLR.B  399.7
+00220:  MOV.B   #1,W0L
+00222:  MOV.B   W0L,398
+00224:  MOV     #7800,W4
+00226:  MOV     W4,39C
+00228:  MOV     #4,W4
+0022A:  MOV     W4,3A2
+0022C:  BSET.B  399.7
+....................    clear_interrupt(INT_DMA0); 
+0022E:  BCLR.B  84.4
+....................    clear_interrupt(INT_DMA2); 
+00230:  BCLR.B  87.0
+00232:  BCLR.B  84.4
+00234:  MOV     #1A,W0
+00236:  REPEAT  #C
+00238:  MOV     [--W15],[W0--]
+0023A:  MOV     [--W15],W0
+0023C:  POP     32
+0023E:  POP     36
+00240:  POP     42
+00242:  RETFIE  
+.................... } 
 ....................  
 .................... void main() 
-0021C:  MOV     #7F80,W15
-0021E:  MOV     #7FFF,W0
-00220:  MOV     W0,20
-00222:  NOP     
-00224:  BSET.B  81.7
-00226:  CLR     744
-00228:  MOV     #30,W4
-0022A:  MOV     W4,746
-0022C:  DISI    #E
-0022E:  MOV     #103,W0
-00230:  MOV     #743,W1
-00232:  MOV     #78,W2
-00234:  MOV     #9A,W3
-00236:  MOV.B   W2L,[W1]
-00238:  MOV.B   W3L,[W1]
-0023A:  MOV.B   W0L,743
-0023C:  LSR     W0,#8,W0
-0023E:  MOV     #742,W1
-00240:  MOV     #46,W2
-00242:  MOV     #57,W3
-00244:  MOV.B   W2L,[W1]
-00246:  MOV.B   W3L,[W1]
-00248:  MOV.B   W0L,[W1]
-0024A:  CLR.B   800
-0024C:  BCLR.B  261.7
-0024E:  BCLR.B  2E5.0
-00250:  BSET.B  2E4.7
-00252:  BSET.B  2E5.1
-00254:  BSET.B  2E4.6
-00256:  BCLR.B  260.6
-00258:  BCLR.B  263.1
-0025A:  CLR     268
-0025C:  MOV     #1197,W4
-0025E:  MOV     W4,262
-00260:  BSET.B  261.7
-00262:  BCLR.B  2E5.1
-00264:  BSET.B  2E9.1
-00266:  SETM    32C
-00268:  SETM    32A
-0026A:  SETM    36C
-0026C:  SETM    36A
+00244:  MOV     #7F80,W15
+00246:  MOV     #7FFF,W0
+00248:  MOV     W0,20
+0024A:  NOP     
+0024C:  BSET.B  81.7
+0024E:  SETM    32C
+00250:  SETM    32A
+00252:  SETM    36C
+00254:  SETM    36A
 .................... {     
 ....................      
 ....................     
 ....................    //output_float(PIN_G9); // SS as an input 
-....................  
+....................     setup_spi2(SPI_SLAVE | SPI_SCK_IDLE_LOW | SPI_XMIT_L_TO_H | SPI_MODE_16B | SPI_SAMPLE_AT_END | SPI_SS_ENABLED); 
+00256:  BCLR.B  261.7
+00258:  BCLR.B  260.6
+0025A:  MOV     #780,W4
+0025C:  MOV     W4,262
+0025E:  BSET.B  261.7
 ....................  
 ....................    
 ....................        TxBuffer[0] = 1; 
-0026E:  MOV     7800,W0
-00270:  MOV.B   #1,W0L
-00272:  MOV     W0,7800
+00260:  MOV     #1,W4
+00262:  MOV     W4,7800
 ....................        TxBuffer[1] = 3; 
-00274:  MOV     7800,W0
-00276:  SWAP    W0
-00278:  MOV.B   #3,W0L
-0027A:  SWAP    W0
-0027C:  MOV     W0,7800
+00264:  MOV     #3,W4
+00266:  MOV     W4,7802
 ....................        TxBuffer[2] = 2; 
-0027E:  MOV     7802,W0
-00280:  MOV.B   #2,W0L
-00282:  MOV     W0,7802
+00268:  MOV     #2,W4
+0026A:  MOV     W4,7804
 ....................        TxBuffer[3] = 1; 
-00284:  MOV     7802,W0
-00286:  SWAP    W0
-00288:  MOV.B   #1,W0L
-0028A:  SWAP    W0
-0028C:  MOV     W0,7802
-....................     
-....................    setup_dma(2, DMA_OUT_SPI2, DMA_BYTE);   
-0028E:  MOV.B   #60,W0L
-00290:  MOV.B   W0L,399
-00292:  MOV.B   #21,W0L
-00294:  MOV.B   W0L,39A
-00296:  MOV     #268,W4
-00298:  MOV     W4,3A0
-....................    setup_dma(0, DMA_IN_SPI2, DMA_BYTE); 
-0029A:  MOV.B   #40,W0L
-0029C:  MOV.B   W0L,381
-0029E:  MOV.B   #21,W0L
-002A0:  MOV.B   W0L,382
-002A2:  MOV     #268,W4
-002A4:  MOV     W4,388
+0026C:  MOV     #1,W4
+0026E:  MOV     W4,7806
 ....................  
-....................    spi_prewrite(TxBuffer[0]); 
-002A6:  MOV     7800,W0
-002A8:  MOV.B   W0L,800
-002AA:  MOV.B   800,W0L
-002AC:  MOV.B   W0L,268
-002AE:  MOV.B   #1,W0L
-002B0:  MOV.B   W0L,800
-....................    dma_start(0, DMA_CONTINOUS ,&RxBuffer[0],3);   
-002B2:  BCLR.B  381.7
-002B4:  CLR.B   380
-002B6:  MOV     #7804,W4
-002B8:  MOV     W4,384
-002BA:  MOV     #3,W4
-002BC:  MOV     W4,38A
-002BE:  BSET.B  381.7
-....................    dma_start(2, DMA_CONTINOUS ,&TxBuffer[0],3); 
-002C0:  BCLR.B  399.7
-002C2:  CLR.B   398
-002C4:  MOV     #7800,W4
-002C6:  MOV     W4,39C
-002C8:  MOV     #3,W4
-002CA:  MOV     W4,3A2
-002CC:  BSET.B  399.7
-....................     
+....................    enable_interrupts(INT_DMA0); 
+00270:  BSET.B  94.4
+....................    //enable_interrupts(INTR_GLOBAL); 
+....................    setup_dma(2, DMA_OUT_SPI2, DMA_WORD);   
+00272:  MOV.B   #20,W0L
+00274:  MOV.B   W0L,399
+00276:  MOV.B   #21,W0L
+00278:  MOV.B   W0L,39A
+0027A:  MOV     #268,W4
+0027C:  MOV     W4,3A0
+....................    setup_dma(0, DMA_IN_SPI2, DMA_WORD); 
+0027E:  CLR.B   381
+00280:  MOV.B   #21,W0L
+00282:  MOV.B   W0L,382
+00284:  MOV     #268,W4
+00286:  MOV     W4,388
+....................  
+....................    //spi_prewrite(TxBuffer[0]); 
+....................    dma_start(0, DMA_ONE_SHOT ,&RxBuffer[0],4);   
+00288:  BCLR.B  381.7
+0028A:  MOV.B   #1,W0L
+0028C:  MOV.B   W0L,380
+0028E:  MOV     #7808,W4
+00290:  MOV     W4,384
+00292:  MOV     #4,W4
+00294:  MOV     W4,38A
+00296:  BSET.B  381.7
+....................    dma_start(2, DMA_ONE_SHOT ,&TxBuffer[0],4); 
+00298:  BCLR.B  399.7
+0029A:  MOV.B   #1,W0L
+0029C:  MOV.B   W0L,398
+0029E:  MOV     #7800,W4
+002A0:  MOV     W4,39C
+002A2:  MOV     #4,W4
+002A4:  MOV     W4,3A2
+002A6:  BSET.B  399.7
+....................    enable_interrupts(INT_DMA0); 
+002A8:  BSET.B  94.4
+....................    
 ....................    while(1) 
 ....................    { 
-....................        output_high(GREEN_LED); 
-002CE:  BCLR.B  2C0.6
-002D0:  BSET.B  2C4.6
-....................        delay_ms(500); 
-002D2:  MOV     #1F4,W0
-002D4:  CALL    200
-....................        output_low(GREEN_LED); 
-002D8:  BCLR.B  2C0.6
-002DA:  BCLR.B  2C4.6
-....................        delay_ms(500); 
-002DC:  MOV     #1F4,W0
-002DE:  CALL    200
-002E2:  GOTO    2CE
 ....................  
+....................             //dma_start(0, DMA_ONE_SHOT,&RxBuffer[0],4); 
+....................         
+....................        //Error = interrupt_active(INT_DMA0); 
+....................        
+....................             
+....................         
+....................             for (i=0; i<=3; i++) 
+002AA:  CLR.B   800
+002AC:  MOV.B   800,W0L
+002AE:  SE      W0,W0
+002B0:  CP      W0,#3
+002B2:  BRA     GT,2D4
+....................                 TxBuffer[i] = RxBuffer[i]; 
+002B4:  MOV.B   800,W0L
+002B6:  SE      W0,W0
+002B8:  MOV     W0,W4
+002BA:  MUL.UU  W4,#2,W0
+002BC:  MOV     #7800,W4
+002BE:  ADD     W0,W4,W5
+002C0:  MOV.B   800,W0L
+002C2:  SE      W0,W0
+002C4:  MOV     W0,W4
+002C6:  MUL.UU  W4,#2,W0
+002C8:  MOV     #7808,W4
+002CA:  ADD     W0,W4,W0
+002CC:  MOV     [W0],[W5]
+002CE:  INC.B   0800
+002D0:  GOTO    2AC
+002D4:  GOTO    2AA
+....................            //TxBuffer[1] = RxBuffer[1]; 
+....................   
 ....................    } 
 ....................    
 .................... }    
-002E6:  PWRSAV  #0
+002D8:  PWRSAV  #0
 
 Configuration Fuses:
    Word  1L: 00CF   NOWRTB NOBSS NORBS
@@ -201,9 +215,9 @@ Configuration Fuses:
           H: 0000  
    Word  3L: 0007   NOWRT NOPROTECT
           H: 0000  
-   Word  4L: 0080   FRC IESO
+   Word  4L: 0082   PR IESO
           H: 0000  
-   Word  5L: 0041   XT OSCIO CKSNOFSM
+   Word  5L: 00C2   HS OSCIO
           H: 0000  
    Word  6L: 005F   WPOSTS16 WPRES128 WINDIS NOWDT
           H: 0000  

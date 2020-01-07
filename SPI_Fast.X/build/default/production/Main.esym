@@ -1,7 +1,7 @@
 D G "__PCD__" 0 0 ""5.069""
 D G "__DEVICE__" 0 0 ""
-D G "__DATE__" 0 0 ""09-Jul-19""
-D G "__TIME__" 0 0 ""16:46:26""
+D G "__DATE__" 0 0 ""07-Jan-20""
+D G "__TIME__" 0 0 ""14:40:48""
 D G "_UNICODE" 0 0 ""?""
 D G "__EVAL" 0 0 ""?""
 D G "__dsPIC33FJ256GP710A__" 0 0 "1" "* Filament Control."
@@ -1625,14 +1625,19 @@ d G "INT_DMA6" 1 1065 "133"
 d G "INT_DMA7" 1 1066 "134"
 d G "INT_C1TX" 1 1067 "135"
 d G "INT_C2TX" 1 1068 "136"
-D G "GREEN_LED" 0 15 "PIN_A6"
-D G "RED_LED" 0 16 "PIN_A7"
-V G "i" 0 18 "sint8" `801 
-V G "Error" 0 18 "sint8" `802 
-V G "TxBuffer" 0 21 "int8[4]" `803 
-V G "RxBuffer" 0 23 "int8[4]" `804 
-F N "main" 0 25 ""
-F G "main" 0 26 "void()" `805  "output_float(PIN_G9); // SS as an input"
+D G "GREEN_LED" 0 16 "PIN_A6"
+D G "RED_LED" 0 17 "PIN_A7"
+V G "i" 0 19 "sint8" `794 
+V G "Error" 0 19 "sint8" `795 
+V G "TxBuffer" 0 22 "int16[4]" `796 
+V G "RxBuffer" 0 24 "int16[4]" `797 
+F N "dma0_isr" 0 26 ""
+F G "dma0_isr" 0 27 "void()" `798 
+F N "MAIN" 0 34 ""
+F G "MAIN" 0 35 "void()" `799  "output_float(PIN_G9); // SS as an input"
+C L "MAIN" 0 13 1 "FUNCTION"
+C L "MAIN" 0 13 1 "FUNCTION"
+C L "MAIN" 0 13 2 "FUNCTION"
 F B "reset_cpu" 0 0
 F B "abs" 1 0
 F B "sleep" 0 1
@@ -1839,8 +1844,3 @@ F B "dci_transmit_ready" 0 0
 F B "dci_data_received" 0 0
 F B "delay_ms" 1 0
 F B "delay_us" 1 0
-F B "spi_xfer" 0 3
-F B "spi_prewrite" 1 2
-F B "spi_xfer_in" 0 2
-F B "spi_speed" 1 3
-F B "spi_init" 1 2

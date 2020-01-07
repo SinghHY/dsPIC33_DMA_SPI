@@ -1,46 +1,46 @@
 
-ROM used:   744/175104 (0%)
-            744/175104 (0%) including unused fragments
+ROM used:   730/175104 (0%)
+            730/175104 (0%) including unused fragments
 
-            0.7 Average locations per line
-            49.6 Average locations per statement
+            0.6 Average locations per line
+            38.4 Average locations per statement
 
-RAM used:   140/30720 (0%) at main() level
-            140/30720 (0%) worst case
+RAM used:   146/30720 (0%) at main() level
+            146/30720 (0%) worst case
 
-Stack used: 2 worst case (2 in main + 0 for interrupts)
+Stack used: 38 worst case (0 in main + 38 for interrupts)
 Stack size: 128
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   55    15 100  Main.c
+   73    19 100  Main.c
  1071     0   0  ..\..\..\Program Files (x86)\PICC\devices\33FJ256GP710A.h
 ----- -----
- 1126    15 Total
+ 1144    19 Total
 
 Page ROM  %  RAM    Vol Diff  Functions:
 ---- --- --- ---    --- ----  ----------
-0     28   2    1             @delay_ms1
-0    204  14    1    583  4.3  main
+0     68   5    0    172  2.7  dma0_isr
+0    150  10    0    733  5.8  MAIN
  Inline         0             @cinit1
 
 Program metrics:
-    Functions               1
-    Statements              15
-    Comments                154
-    Volume (V)              588
-    Difficulty (D)          4.1
-    Effort to implement (E) 2435
-    Time to implement (T)   2 minutes
+    Functions               2
+    Statements              19
+    Comments                160
+    Volume (V)              1031
+    Difficulty (D)          8.4
+    Effort to implement (E) 8680
+    Time to implement (T)   8 minutes
     Est Delivered Bugs (B)  0
     Cyclomatic Complexity   1
-    Maintainability (MI)    112
+    Maintainability (MI)    150
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-001FE   508  0  
-00200-0FFFE   232  64792  
+00200-0FFFE   218  64806  
 10000-1FFFE     0  65536  
 20000-2ABFE     0  44032  
 

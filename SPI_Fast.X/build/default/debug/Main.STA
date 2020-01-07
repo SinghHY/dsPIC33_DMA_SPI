@@ -1,46 +1,46 @@
 
-ROM used:   790/175104 (0%)
-            790/175104 (0%) including unused fragments
+ROM used:   730/175104 (0%)
+            730/175104 (0%) including unused fragments
 
-            0.7 Average locations per line
-            52.7 Average locations per statement
+            0.6 Average locations per line
+            38.4 Average locations per statement
 
-RAM used:   116/30630 (0%) at main() level
-            116/30630 (0%) worst case
+RAM used:   146/30630 (0%) at main() level
+            146/30630 (0%) worst case
 
-Stack used: 2 worst case (2 in main + 0 for interrupts)
-Stack size: 96
+Stack used: 38 worst case (0 in main + 38 for interrupts)
+Stack size: 128
 
 Lines Stmts  %   Files
 ----- ----- ---  -----
-   55    15 100  Main.c
+   73    19 100  Main.c
  1071     0   0  ..\..\..\Program Files (x86)\PICC\devices\33FJ256GP710A.h
 ----- -----
- 1126    15 Total
+ 1144    19 Total
 
 Page ROM  %  RAM    Vol Diff  Functions:
 ---- --- --- ---    --- ----  ----------
-0     28   2    0             @delay_ms1
-0    250  16    0    704  6.3  main
+0     68   5    0    172  2.7  dma0_isr
+0    150  10    0    733  5.8  MAIN
  Inline         0             @cinit1
 
 Program metrics:
-    Functions               1
-    Statements              15
-    Comments                154
-    Volume (V)              709
-    Difficulty (D)          6.0
-    Effort to implement (E) 4277
-    Time to implement (T)   4 minutes
+    Functions               2
+    Statements              19
+    Comments                160
+    Volume (V)              1031
+    Difficulty (D)          8.4
+    Effort to implement (E) 8680
+    Time to implement (T)   8 minutes
     Est Delivered Bugs (B)  0
-    Cyclomatic Complexity   2
-    Maintainability (MI)    111
+    Cyclomatic Complexity   1
+    Maintainability (MI)    150
 
  Segment     Used  Free
 -----------  ----  ----
 00000-00002     4  0  
 00004-001FE   508  0  
-00200-0FFFE   278  64746  
+00200-0FFFE   218  64806  
 10000-1FFFE     0  65536  
 20000-2ABFE     0  44032  
 

@@ -1,46 +1,42 @@
 W0      @SCRATCH
 W0L     _RETURN_
-W0 -W1  @READ_ROM_MEMORY.P1
-W0 -W1  @SPI_XFER_1.P2
+W0      @delay_ms1.P1
+W0 -W1  @READ_ROM_MEMORY.P2
 W0      @delay_us1.P3
 W0 -W1  @DIV3232B.P4
-W0      @delay_ms1.P5
 W1      @SCRATCH
 W1      @READ_PACKED_MEMORY.P1
 W1      @WRITE_PACKED_MEMORY.P2
 W2 -W3  @DIV3232B.P1
-W2      @SPI_XFER_1.P2
+W2      @READ_ROM_MEMORY.P2
 W2      @READ_PACKED_MEMORY.P3
-W2      @READ_ROM_MEMORY.P4
-W2      @WRITE_PACKED_MEMORY.P5
-W2      @SPI_XFER_IN_1.P6
+W2      @WRITE_PACKED_MEMORY.P4
 W3      @READ_ROM_MEMORY.P1
 W3      @WRITE_PACKED_MEMORY.P2
 W3      @READ_PACKED_MEMORY.P3
-85A-85B @SPIWRITE_1
-85C     i
-85D     Error
+85A     i
+85B     Error
 7800-7807 TxBuffer
 7808-780F RxBuffer
-7FA0-7FFF Stack
+7F80-7FFF Stack
 
 ROM Allocation:
-000200  @delay_ms1
-00021C  main
-00021C  @cinit1
-00026E  @cinit2
+000200  dma0_isr
+000244  MAIN
+000244  @cinit1
+000256  @cinit2
 
 Project Directory:
     C:\GitRepo\dsPIC33_DMA_SPI\SPI_Fast.X\
 
 Project Files:
-    Main.c                                                  [09-Jul-19 14:51  CRC=EAFAD46F]
-    ..\..\..\Program Files (x86)\PICC\devices\33FJ256GP710A.h [14-Feb-17 14:54  CRC=7C664F33]
+    Main.c                                                  [07-Jan-20 14:40  CRC=DFAEDA2D]
+    ..\..\..\Program Files (x86)\PICC\devices\33FJ256GP710A.h [14-Feb-17 13:54  CRC=7C664F33]
 
-Source signature=E3C772D5
+Source signature=D87B7893
 Program memory checksum=0000
 Program memory CRC=0000
-Hex file CRC=E8D5
+Hex file CRC=B038
 
 Units:
     Main (main)
