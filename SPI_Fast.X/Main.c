@@ -19,14 +19,14 @@
 int8 i, Error;
    
 #bank_dma 
-    unsigned int16  TxBuffer[4];
+    unsigned int16  TxBuffer[2];
 #bank_dma 
-    unsigned int16  RxBuffer[4]; 
+    unsigned int16  RxBuffer[2]; 
 #INT_DMA0
 void dma0_isr(void)
 {
-   dma_start(0, DMA_ONE_SHOT ,&RxBuffer[0],4);
-   dma_start(2, DMA_ONE_SHOT ,&TxBuffer[0],4);
+   dma_start(0, DMA_ONE_SHOT ,&RxBuffer[0],1);
+   dma_start(2, DMA_ONE_SHOT ,&TxBuffer[0],1);
    clear_interrupt(INT_DMA0);
    clear_interrupt(INT_DMA2);
 }
@@ -50,8 +50,8 @@ void main()
    setup_dma(0, DMA_IN_SPI2, DMA_WORD);
 
  
-   dma_start(0, DMA_ONE_SHOT ,&RxBuffer[0],4);  
-   dma_start(2, DMA_ONE_SHOT ,&TxBuffer[0],4);
+   dma_start(0, DMA_ONE_SHOT ,&RxBuffer[0],1);  
+   dma_start(2, DMA_ONE_SHOT ,&TxBuffer[0],1);
    enable_interrupts(INT_DMA0);
   
    while(1)
@@ -59,7 +59,7 @@ void main()
 
              
             for (i=0; i<=3; i++)
-                TxBuffer[i] = RxBuffer[i];
+                Error = i;
 
  
    }
